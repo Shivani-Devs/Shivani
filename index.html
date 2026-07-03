@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shivani Saravanan — Building ideas that move people :)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f4efe2;
+    --cream-2:#ece3cd;
+    --cream-3:#e4d8bc;
+    --ink:#211f1a;
+    --ink-soft:#5a5648;
+    --track:#c7b98f;
+    --rust:#b1502c;
+    --rust-soft:#c96a3f;
+    --green-dark:#16261f;
+    --green-mid:#1c3229;
+    --green-accent:#5f8a5c;
+    --maroon:#5c1d29;
+    --navy:#1a2740;
+    --olive:#2c2c1a;
+    --sage:#5f7a5c;
+    --card-cream:#faf7ee;
+    --border:rgba(33,31,26,0.12);
+    --shadow: 0 20px 40px -20px rgba(33,31,26,0.25);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Inter', sans-serif;
+    color:var(--ink);
+    background-color:var(--cream);
+    background-image: radial-gradient(circle, rgba(33,31,26,0.14) 1px, transparent 1.4px);
+    background-size: 22px 22px;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  ::selection{ background: var(--rust); color: var(--cream); }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  h1,h2,h3{ font-family:'Playfair Display', serif; font-weight:700; letter-spacing:-0.01em; }
+
+  /* ---------- Layout shell ---------- */
+  .rail{
+    position:fixed;
+    left: 34px;
+    top:12.5vh;
+    height:75vh;
+    width:2px;
+    background-image: repeating-linear-gradient(to bottom, var(--track) 0 10px, transparent 10px 20px);
+    z-index:5;
+    pointer-events:none;
+  }
+  .rail::before, .rail::after{
+    content:"";
+    position:absolute;
+    left:-3px;
+    width:8px; height:8px;
+    border-radius:50%;
+    background:var(--track);
+  }
+  .rail::before{ top:-4px; }
+  .rail::after{ bottom:-4px; }
+  .rail-marker{
+    position:absolute;
+    left:-10px;
+    top:0;
+    width:22px;
+    height:26px;
+    transition: top .08s linear;
+  }
+  .rail-marker svg{ width:100%; height:100%; display:block; filter: drop-shadow(0 3px 5px rgba(33,31,26,0.35)); }
+
+  .page{
+    position:relative;
+    max-width: 1360px;
+    margin:0 auto;
+    padding-left: 76px;
+    padding-right: 40px;
+  }
+  section{ position:relative; }
+
+  .hills{
+    position:absolute;
+    left:0; right:0; bottom:-1px;
+    height:120px;
+    pointer-events:none;
+    z-index:1;
+  }
+  .hills svg{ width:100%; height:100%; display:block; }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background: rgba(244,239,226,0.86);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-inner{
+    max-width:1360px; margin:0 auto;
+    padding: 18px 40px 18px 76px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{ font-family:'Playfair Display', serif; font-weight:700; font-size:1.1rem; letter-spacing:0.08em; }
+  nav ul{ display:flex; gap:34px; }
+  nav a{
+    font-size:0.72rem; letter-spacing:0.14em; font-weight:600; text-transform:uppercase;
+    color:var(--ink-soft); transition: color .2s ease; position:relative;
+  }
+  nav a:hover{ color:var(--rust); }
+  .nav-toggle{ display:none; }
+
+  /* ---------- Eyebrow ---------- */
+  .eyebrow{
+    display:flex; align-items:center; gap:9px;
+    font-size:0.72rem; letter-spacing:0.16em; font-weight:700; text-transform:uppercase;
+    color:var(--rust); margin-bottom:14px;
+  }
+  .eyebrow .dot{
+    width:9px; height:9px; border-radius:50%; background: var(--rust);
+    box-shadow: 0 0 0 3px rgba(177,80,44,0.18); flex-shrink:0;
+  }
+
+  .section-head{ max-width: 640px; margin-bottom:44px; }
+  .section-head h2{ font-size:2.4rem; margin-bottom:10px; }
+  .section-head p{ color:var(--ink-soft); font-size:1.02rem; line-height:1.6; }
+
+  /* ================= HERO ================= */
+  .hero{
+    min-height:92vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding-top:60px; padding-bottom:120px;
+  }
+  .hero-dots{ display:flex; gap:9px; margin-bottom:24px; }
+  .hero-dots .hdot{
+    width:7px; height:7px; border-radius:50%;
+    background:#d7cbac;
+    transition: background .5s ease, box-shadow .5s ease;
+  }
+  .hero-dots .hdot.active{
+    background: var(--rust);
+    box-shadow: 0 0 9px 2px rgba(177,80,44,0.55);
+  }
+  .hero h1{
+    font-size:clamp(5.0rem, 7vw, 5.2rem);
+    line-height:1.03;
+    margin-bottom:20px;
+  }
+  .hero .tagline{
+    font-family:'Playfair Display', serif; font-style:italic; font-size:1.75rem;
+    color:var(--ink-soft); margin-bottom:18px;
+  }
+  .hero .keywords{
+    font-size:0.8rem; letter-spacing:0.2em; font-weight:700; text-transform:uppercase;
+    color:var(--rust-soft); margin-bottom:34px;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding: 14px 26px; border-radius: 999px;
+    font-size:0.82rem; font-weight:600; letter-spacing:0.02em;
+    cursor:pointer; border:1px solid transparent;
+    transition: transform .2s ease, box-shadow .2s ease, background .25s ease, color .25s ease, border-color .25s ease;
+  }
+  .btn:hover{ transform: translateY(-2px); }
+  .btn-dark{ background:var(--green-dark); color:var(--cream); box-shadow: var(--shadow); }
+  .btn-dark:hover{ background:var(--rust); color:#fff; }
+  .btn-outline{ background:transparent; border-color:var(--border); color:var(--ink); }
+  .btn-outline:hover{ border-color:var(--rust); color:#fff; background:var(--rust); }
+
+  .hero-train{ margin-top:54px; width:230px; }
+  .hero-train svg{ width:100%; height:auto; display:block; }
+
+  .scroll-cue{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    animation: bob 2.2s ease-in-out infinite;
+  }
+  @keyframes bob{ 0%,100%{ transform:translate(-50%,0);} 50%{ transform:translate(-50%,6px);} }
+
+  /* ================= ABOUT ================= */
+  #about{ padding: 110px 0 130px; }
+  .about-grid{ display:grid; grid-template-columns: 1.15fr 0.85fr; gap:70px; align-items:start; }
+  .about-grid h2{ font-size:2.5rem; margin-bottom:22px; }
+  .about-grid p{ color:var(--ink-soft); line-height:1.85; font-size:1.02rem; margin-bottom:20px; }
+  .about-grid p:last-child{ margin-bottom:0; }
+
+  .pass{
+    background: var(--card-cream); border:1px solid var(--border); border-radius:18px;
+    padding:26px 26px 22px; box-shadow: var(--shadow); position:relative;
+  }
+  .pass-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:22px; }
+  .pass-tag{ display:flex; align-items:center; gap:8px; font-size:0.68rem; letter-spacing:0.14em; font-weight:700; text-transform:uppercase; color:var(--rust); }
+  .pass-tag .dot{ width:7px;height:7px;border-radius:50%;background:var(--rust); }
+  .pass-num{ font-family:'Space Mono', monospace; font-size:0.72rem; color:var(--ink-soft); }
+  .pass-label{ font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:6px; }
+  .pass-name{ font-family:'Playfair Display', serif; font-size:1.5rem; font-weight:700; margin-bottom:20px; }
+  .pass-row{ display:flex; justify-content:space-between; margin-bottom:20px; }
+  .pass-row div{ flex:1; }
+  .pass-row .val{ font-weight:600; font-size:1rem; }
+  .pass-row .val.accent{ color:var(--rust); font-family:'Playfair Display', serif; font-style:italic; }
+  .pass-row3{ display:flex; gap:18px; margin-bottom:24px; }
+  .pass-row3 div{ flex:1; }
+  .barcode{
+    height:34px;
+    background: repeating-linear-gradient(to right, var(--ink) 0 2px, transparent 2px 5px, var(--ink) 5px 7px, transparent 7px 11px);
+    border-radius:3px; opacity:.85;
+  }
+
+  /* ================= AWARDS ================= */
+  #awards{ padding: 60px 0 130px; }
+  .cards-4{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
+    gap:20px;
+  }
+  .award-card{
+    background:var(--card-cream);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px 20px;
+    box-shadow: var(--shadow);
+    min-height:150px;
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+    cursor:default;
+    transition: border-color .25s ease, transform .2s ease, box-shadow .25s ease;
+  }
+  .award-card:hover{
+    border-color: var(--green-accent);
+    transform: translateY(-3px);
+    box-shadow: 0 22px 40px -18px rgba(95,138,92,0.35);
+  }
+  .signal-housing{
+    flex-shrink:0;
+    width:18px;
+    background:#2c2b26;
+    border-radius:9px;
+    padding:5px 0;
+    display:flex; flex-direction:column; align-items:center; gap:5px;
+  }
+  .signal-housing span{
+    width:8px; height:8px; border-radius:50%;
+    background:#59564c;
+    transition: background .3s ease, box-shadow .3s ease, transform .3s ease;
+  }
+  .signal-housing .s-red{ background:#c0473a; }
+  .signal-housing .s-amber{ background:#d9a441; }
+  .signal-housing .s-green{ background:#5f8a5c; }
+  .award-card:hover .s-red,
+  .award-card:hover .s-amber{ background:#4a483f; }
+  .award-card:hover .s-green{
+    background:#7fbf78;
+    box-shadow: 0 0 10px 3px rgba(95,191,120,0.65);
+    transform: scale(1.2);
+  }
+  .award-card h3{ font-size:1rem; line-height:1.35; margin-bottom:6px; }
+  .award-card p{ font-size:0.82rem; color:var(--ink-soft); }
+
+  /* ================= CARGO / SKILLS ================= */
+  #skills{ padding: 60px 0 140px; }
+  .cargo-wrap{ position:relative; }
+  .cargo-track{
+    display:flex; gap:26px; overflow-x:auto;
+    padding:6px 6px 26px;
+    scrollbar-width:none;
+  }
+  .cargo-track::-webkit-scrollbar{ display:none; }
+  .cargo-card{
+    flex:0 0 250px;
+    position:relative;
+    border-radius:10px;
+    padding:20px 20px 18px;
+    color:#f2ede1;
+    box-shadow: var(--shadow);
+    min-height:180px;
+  }
+  .cargo-card .cargo-rail-top{
+    height:5px; width:56%; border-radius:3px;
+    background:rgba(255,255,255,0.28);
+    margin-bottom:16px;
+  }
+  .cargo-card h3{ font-family:'Playfair Display', serif; font-size:1.05rem; margin-bottom:14px; letter-spacing:0.01em; }
+  .cargo-card ul li{
+    font-size:0.86rem; padding:7px 0; border-top:1px solid rgba(255,255,255,0.12); opacity:.92;
+  }
+  .cargo-card ul li:first-child{ border-top:none; }
+  .cargo-wheels{
+    position:absolute; left:16px; right:16px; bottom:-11px;
+    display:flex; justify-content:space-between;
+  }
+  .cargo-wheels span{
+    width:16px; height:16px; border-radius:50%;
+    background:#211f1a; border:3px solid var(--cream);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+  }
+  .c-programming{ background:var(--green-dark); }
+  .c-ai{ background:var(--maroon); }
+  .c-design{ background:var(--navy); }
+  .c-engineering{ background:var(--olive); }
+  .c-leadership{ background:#4a1f1f; }
+
+  .cargo-slider-wrap{
+    display:flex; align-items:center; gap:14px;
+    margin-top:22px;
+  }
+  .cargo-slider-wrap svg{ flex-shrink:0; width:20px; height:20px; opacity:.6; }
+  input[type=range].track-slider{
+    -webkit-appearance:none; appearance:none;
+    flex:1;
+    height:4px;
+    border-radius:2px;
+    background: repeating-linear-gradient(to right, var(--track) 0 8px, transparent 8px 16px);
+    outline:none;
+    cursor:pointer;
+  }
+  input[type=range].track-slider::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    width:22px; height:16px;
+    border-radius:4px;
+    background: var(--green-dark);
+    border:2px solid var(--cream);
+    box-shadow: 0 3px 6px rgba(33,31,26,0.35);
+    cursor:pointer;
+    margin-top:-1px;
+    transition: background .2s ease;
+  }
+  input[type=range].track-slider:hover::-webkit-slider-thumb{ background:var(--rust); }
+  input[type=range].track-slider::-moz-range-thumb{
+    width:22px; height:16px; border-radius:4px;
+    background: var(--green-dark); border:2px solid var(--cream);
+    cursor:pointer; transition: background .2s ease;
+  }
+  input[type=range].track-slider:hover::-moz-range-thumb{ background:var(--rust); }
+
+  /* ================= PROJECTS ================= */
+  #projects{ padding:60px 0 140px; }
+  .proj-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+    gap:24px;
+  }
+  .proj-card{
+    background:var(--card-cream);
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow: var(--shadow);
+    display:flex; flex-direction:column;
+    cursor:pointer;
+    transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .proj-card:hover{
+    border-color:var(--rust);
+    transform: translateY(-4px);
+    box-shadow: 0 24px 44px -18px rgba(177,80,44,0.35);
+  }
+  .proj-img{ height:150px; background-size:cover; background-position:center; position:relative; }
+  .proj-img.placeholder{
+    background: repeating-linear-gradient(135deg, var(--cream-3) 0 12px, var(--cream-2) 12px 24px);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .proj-img.placeholder span{ font-size:1.6rem; opacity:.5; }
+  .proj-body{ padding:20px 20px 22px; display:flex; flex-direction:column; flex:1; }
+  .proj-num{ font-size:0.68rem; letter-spacing:0.14em; font-weight:700; text-transform:uppercase; color:var(--rust); margin-bottom:8px; }
+  .proj-body h3{ font-size:1.15rem; margin-bottom:8px; }
+  .proj-body p{ font-size:0.86rem; color:var(--ink-soft); line-height:1.6; margin-bottom:16px; flex:1; }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:7px; }
+  .tag{
+    font-size:0.66rem; letter-spacing:0.04em; font-weight:600; text-transform:uppercase;
+    padding:5px 10px; border-radius:999px; background:var(--cream-2); color:var(--ink-soft);
+  }
+
+  /* ================= NOW BOARDING ================= */
+  #interests{ padding:60px 0 150px; }
+  .board{
+    background:var(--green-dark); border-radius:16px;
+    padding:26px 26px 10px; box-shadow: var(--shadow); color:#e9e4d4;
+  }
+  .board-head{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'Space Mono', monospace; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
+    padding-bottom:14px; border-bottom:1px solid rgba(233,228,212,0.18); margin-bottom:6px;
+    color:#c7c2ac;
+  }
+  .board-row{
+    display:flex; align-items:center; gap:18px; padding:14px 0;
+    border-bottom:1px dashed rgba(233,228,212,0.14);
+    font-family:'Space Mono', monospace;
+  }
+  .board-row:last-child{ border-bottom:none; }
+  .board-idx{ font-size:0.78rem; color:var(--rust-soft); width:22px; flex-shrink:0; }
+  .board-name{ flex:1; font-size:0.9rem; letter-spacing:0.03em; }
+  .board-status{
+    font-size:0.66rem; letter-spacing:0.14em; font-weight:700;
+    background:rgba(178,112,58,0.22); color:#e2a06f; padding:5px 10px; border-radius:5px;
+    flex-shrink:0;
+  }
+
+  /* ================= EXPERIENCE ================= */
+  #experience{ padding:60px 0 150px; }
+  .stops{ position:relative; display:flex; flex-direction:column; gap:20px; padding-left:38px; }
+  .stops::before{
+    content:""; position:absolute; left:8px; top:12px; bottom:12px; width:2px;
+    background-image: repeating-linear-gradient(to bottom, var(--track) 0 6px, transparent 6px 12px);
+  }
+  .stop{
+    position:relative;
+    background:var(--card-cream);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:22px 24px;
+    display:flex; justify-content:space-between; gap:24px;
+    box-shadow: var(--shadow);
+    cursor:pointer;
+    transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .stop::before{
+    content:""; position:absolute; left:-38px; top:26px;
+    width:14px; height:14px; border-radius:50%;
+    background:var(--card-cream); border:3px solid var(--maroon);
+    box-shadow: 0 0 0 3px var(--cream);
+    z-index:2;
+  }
+  .stop:hover{
+    border-color:var(--rust);
+    transform: translateX(4px);
+    box-shadow: 0 20px 40px -18px rgba(177,80,44,0.35);
+  }
+  .stop-main h3{ font-size:1.12rem; margin-bottom:4px; }
+  .stop-role{ font-size:0.82rem; font-weight:600; color:var(--rust); margin-bottom:10px; }
+  .stop-main p{ font-size:0.86rem; color:var(--ink-soft); line-height:1.6; max-width:640px; }
+  .stop-status{
+    flex-shrink:0; align-self:flex-start;
+    font-size:0.66rem; letter-spacing:0.12em; font-weight:700; text-transform:uppercase;
+    padding:6px 12px; border-radius:999px;
+  }
+  .status-summer{ background:rgba(177,80,44,0.14); color:var(--rust); }
+  .status-ongoing{ background:rgba(95,138,92,0.16); color:#4c7048; }
+  .status-current{ background:rgba(95,138,92,0.16); color:#4c7048; }
+  .status-founded{ background:rgba(90,110,180,0.16); color:#3d4f9c; }
+
+  /* ================= CONTACT ================= */
+  #contact{ padding:90px 0 60px; text-align:center; }
+  #contact .section-head{ margin:0 auto 34px; max-width:620px; text-align:center; }
+  #contact .eyebrow{ justify-content:center; }
+  #contact h2{ font-size:2.3rem; line-height:1.25; margin-bottom:14px; }
+  #contact p{ color:var(--ink-soft); font-size:1rem; }
+  .contact-btns{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
+
+  footer{ text-align:center; padding:60px 0 40px; position:relative; }
+  .thanks{ font-family:'Playfair Display', serif; font-style:italic; color:var(--ink-soft); margin-bottom:8px; }
+  .foot-icons{ font-size:1.1rem; margin-bottom:34px; letter-spacing:6px; }
+  .foot-bar{
+    max-width:1360px; margin:0 auto; padding: 22px 40px 0 76px;
+    border-top:1px solid var(--border);
+    display:flex; justify-content:space-between;
+    font-size:0.75rem; color:var(--ink-soft);
+  }
+  .foot-bar a:hover{ color:var(--rust); }
+
+  .icon{ width:16px; height:16px; display:inline-block; }
+
+  /* ================= MODAL ================= */
+  .modal-overlay{
+    position:fixed; inset:0; z-index:200;
+    background: rgba(22,20,15,0.55);
+    backdrop-filter: blur(3px);
+    display:flex; align-items:center; justify-content:center;
+    padding:30px;
+    opacity:0; visibility:hidden;
+    transition: opacity .25s ease, visibility .25s ease;
+  }
+  .modal-overlay.open{ opacity:1; visibility:visible; }
+  .modal-box{
+    background:var(--card-cream); border-radius:18px;
+    max-width:520px; width:100%; max-height:86vh; overflow-y:auto;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.45);
+    position:relative;
+    transform: translateY(16px) scale(.98);
+    transition: transform .25s ease;
+  }
+  .modal-overlay.open .modal-box{ transform: translateY(0) scale(1); }
+  .modal-img{ height:220px; background-size:cover; background-position:center; }
+  .modal-close{
+    position:absolute; top:16px; right:16px;
+    width:34px; height:34px; border-radius:50%;
+    background:var(--card-cream); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:1rem;
+    transition: background .2s ease, color .2s ease;
+  }
+  .modal-close:hover{ background:var(--rust); color:#fff; border-color:var(--rust); }
+  .modal-body{ padding:26px 28px 30px; }
+  .modal-eyebrow{ font-size:0.66rem; letter-spacing:0.14em; font-weight:700; text-transform:uppercase; color:var(--rust); margin-bottom:8px; }
+  .modal-body h3{ font-size:1.4rem; margin-bottom:12px; }
+  .modal-body .modal-desc{ font-size:0.92rem; color:var(--ink-soft); line-height:1.7; margin-bottom:20px; }
+  .modal-label{ font-size:0.66rem; letter-spacing:0.14em; font-weight:700; text-transform:uppercase; color:var(--rust); margin-bottom:10px; }
+  .modal-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
+  .modal-reflection{
+    font-family:'Playfair Display', serif; font-style:italic; color:var(--ink-soft);
+    font-size:0.95rem; line-height:1.7; border-left:2px solid var(--rust); padding-left:14px;
+  }
+  .modal-status{
+    display:inline-block; font-size:0.66rem; letter-spacing:0.12em; font-weight:700; text-transform:uppercase;
+    padding:6px 12px; border-radius:999px; margin-bottom:16px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px){
+    .about-grid{ grid-template-columns:1fr; }
+    .proj-grid{ grid-template-columns:1fr; }
+  }
+  @media (max-width: 720px){
+    .rail{ left:14px; }
+    .page{ padding-left:36px; padding-right:20px; }
+    .nav-inner{ padding-left:36px; padding-right:20px; }
+    .foot-bar{ padding-left:36px; padding-right:20px; flex-direction:column; gap:10px; text-align:center; }
+    nav ul{ position:fixed; top:64px; right:0; left:0; background:var(--cream); flex-direction:column; align-items:center; gap:0; border-bottom:1px solid var(--border); transform:translateY(-120%); transition: transform .3s ease; padding:10px 0; }
+    nav ul.open{ transform:translateY(0); }
+    nav ul li{ width:100%; text-align:center; padding:14px 0; }
+    .nav-toggle{ display:flex; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; }
+    .nav-toggle span{ width:20px; height:2px; background:var(--ink); }
+    .cards-4{ grid-template-columns:1fr; }
+    .stop{ flex-direction:column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="rail" aria-hidden="true">
+  <div class="rail-marker" id="railMarker">
+    <svg viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="2" width="16" height="15" rx="3" fill="#211f1a"/>
+      <rect x="5.5" y="4.5" width="11" height="6" rx="1.5" fill="#c96a3f"/>
+      <circle cx="7" cy="20" r="3" fill="#211f1a"/>
+      <circle cx="15" cy="20" r="3" fill="#211f1a"/>
+      <circle cx="7" cy="20" r="1.1" fill="#f4efe2"/>
+      <circle cx="15" cy="20" r="1.1" fill="#f4efe2"/>
+      <rect x="1" y="15" width="20" height="2.4" rx="1.2" fill="#211f1a"/>
+    </svg>
+  </div>
+</div>
+
+<header>
+  <div class="nav-inner">
+    <a class="logo" href="#home">S.S.</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    <nav>
+      <ul id="navList">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#awards">Awards</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero page" id="home">
+    <div class="hero-dots" id="heroDots">
+      <span class="hdot"></span>
+      <span class="hdot"></span>
+    </div>
+    <h1>Shivani Saravanan</h1>
+    <p class="tagline">Building ideas that move people.</p>
+    <p class="keywords">Entrepreneurship &nbsp;•&nbsp; AI &nbsp;•&nbsp; Design &nbsp;•&nbsp; Leadership</p>
+    <a class="btn btn-dark" href="#about">Board the Journey <span>↓</span></a>
+
+    <div class="hero-train" aria-hidden="true">
+      <svg viewBox="0 0 240 70" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="60" x2="240" y2="60" stroke="#c7b98f" stroke-width="2"/>
+        <!-- car 1: slate -->
+        <rect x="4" y="30" width="46" height="24" rx="3" fill="#3d4a5c"/>
+        <rect x="9" y="35" width="14" height="10" rx="1.5" fill="#586a84"/>
+        <rect x="27" y="35" width="14" height="10" rx="1.5" fill="#586a84"/>
+        <circle cx="14" cy="56" r="5" fill="#211f1a"/>
+        <circle cx="40" cy="56" r="5" fill="#211f1a"/>
+        <rect x="50" y="46" width="8" height="4" fill="#8a7f63"/>
+        <!-- car 2: maroon -->
+        <rect x="58" y="28" width="50" height="26" rx="3" fill="#7a2632"/>
+        <rect x="64" y="34" width="16" height="11" rx="1.5" fill="#9a3d49"/>
+        <rect x="84" y="34" width="16" height="11" rx="1.5" fill="#9a3d49"/>
+        <circle cx="70" cy="56" r="5" fill="#211f1a"/>
+        <circle cx="98" cy="56" r="5" fill="#211f1a"/>
+        <rect x="108" y="46" width="8" height="4" fill="#8a7f63"/>
+        <!-- engine: dark green -->
+        <rect x="116" y="16" width="58" height="38" rx="4" fill="#1c3229"/>
+        <rect x="123" y="22" width="20" height="14" rx="2" fill="#3c5b4c"/>
+        <rect x="149" y="22" width="18" height="14" rx="2" fill="#3c5b4c"/>
+        <rect x="150" y="8" width="14" height="12" rx="2" fill="#1c3229"/>
+        <rect x="153" y="2" width="8" height="8" rx="1" fill="#211f1a"/>
+        <circle cx="128" cy="56" r="6" fill="#211f1a"/>
+        <circle cx="162" cy="56" r="6" fill="#211f1a"/>
+        <circle cx="128" cy="56" r="2" fill="#f4efe2"/>
+        <circle cx="162" cy="56" r="2" fill="#f4efe2"/>
+      </svg>
+    </div>
+
+    <div class="hills">
+      <svg viewBox="0 0 1440 160" preserveAspectRatio="none"><path d="M0,110 C200,60 350,150 600,100 C850,50 1000,140 1200,90 C1320,65 1400,100 1440,90 L1440,160 L0,160 Z" fill="#e9dfc4" opacity="0.7"/><path d="M0,140 C220,100 420,150 650,120 C900,90 1100,150 1440,120 L1440,160 L0,160 Z" fill="#efe6cf"/></svg>
+    </div>
+    <a class="scroll-cue" href="#about" aria-label="Scroll down">↓</a>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="page">
+    <div class="about-grid">
+      <div>
+        <div class="eyebrow"><span class="dot"></span>Welcome Aboard</div>
+        <h2>Welcome Aboard</h2>
+		<p>I'm Shivani, a Mathematics student at the University of Waterloo with a passion for finance, AI, design and entrepreneurship.</p>
+        <p>I love building and creating things that solve real problems! Taking ideas from paper to reality is one of my favourite things to do, whether its building businesses, apps or community initiatives </p>
+        <p>As a train enthusiast, it was only right to make my portfolio train themed. This is just version 1 of the site, Im currently working on making it mobile friendly and more interactive. </p>
+      </div>
+      <div class="pass">
+        <div class="pass-top">
+          <div class="pass-tag"><span class="dot"></span>Express Line</div>
+          <div class="pass-num">NO. 2026</div>
+        </div>
+        <div class="pass-label">Passenger</div>
+        <div class="pass-name">Shivani Saravanan</div>
+        <div class="pass-row">
+          <div><div class="pass-label">From</div><div class="val">Curiosity</div></div>
+          <div><div class="pass-label">Destination</div><div class="val accent">Innovation</div></div>
+        </div>
+        <div class="pass-row3">
+          <div><div class="pass-label">Class</div><div class="val">First</div></div>
+          <div><div class="pass-label">Platform</div><div class="val">∞</div></div>
+          <div><div class="pass-label">Seat</div><div class="val">1A</div></div>
+        </div>
+        <div class="barcode"></div>
+      </div>
+    </div>
+    <div class="hills"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,80 C240,40 420,110 700,70 C950,35 1150,100 1440,60 L1440,120 L0,120 Z" fill="#ece2c9"/></svg></div>
+  </section>
+  
+   <!-- PROJECTS -->
+  <section id="projects" class="page">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span>Built Along the Way</div>
+      <h2>Built Along the Way</h2>
+      <p>Some of the projects Ive built: </p>
+    </div>
+    <div class="proj-grid" id="projectsList"></div>
+    <div class="hills"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,80 C240,40 480,110 720,70 C980,30 1200,100 1440,60 L1440,120 L0,120 Z" fill="#e9dfc4" opacity="0.75"/></svg></div>
+  </section>
+  
+   <!-- EXPERIENCE -->
+  <section id="experience" class="page">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span>Stops Along the Line</div>
+      <h2>Stops Along the Line</h2>
+      <p>Each of my experiences is a station!</p>
+    </div>
+    <div class="stops" id="stopsList"></div>
+    <div class="hills"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,70 C260,110 500,40 760,80 C1020,120 1240,60 1440,90 L1440,120 L0,120 Z" fill="#e9dfc4" opacity="0.75"/></svg></div>
+  </section>
+
+  <!-- AWARDS -->
+  <section id="awards" class="page">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span>Green Lights</div>
+      <h2>Green Lights</h2>
+      <p>Signals that tell me Im on the right track!</p>
+    </div>
+    <div class="cards-4" id="awardsList"></div>
+    <div class="hills"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,90 C260,50 460,110 760,70 C1000,40 1200,100 1440,70 L1440,120 L0,120 Z" fill="#e9dfc4" opacity="0.75"/></svg></div>
+  </section>
+
+  <!-- SKILLS / CARGO CAR -->
+  <section id="skills" class="page">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span>Cargo Car</div>
+      <h2>Cargo Car</h2>
+      <p>Skills that Im carrying around with me</p>
+    </div>
+    <div class="cargo-wrap">
+      <div class="cargo-track" id="cargoTrack"></div>
+      <div class="cargo-slider-wrap">
+        <svg viewBox="0 0 22 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="3" y="2" width="16" height="15" rx="3" fill="#211f1a"/>
+          <circle cx="7" cy="20" r="3" fill="#211f1a"/>
+          <circle cx="15" cy="20" r="3" fill="#211f1a"/>
+        </svg>
+        <input type="range" class="track-slider" id="cargoSlider" min="0" max="1000" value="0" aria-label="Scroll skills">
+      </div>
+    </div>
+    <div class="hills"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,70 C260,110 500,40 760,80 C1020,120 1240,60 1440,90 L1440,120 L0,120 Z" fill="#efe6cf"/></svg></div>
+  </section>
+
+
+  <!-- NOW BOARDING -->
+  <section id="interests" class="page">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span>Now Boarding</div>
+      <h2>Now Boarding</h2>
+      <p>Things I'm currently interested in :)</p>
+    </div>
+    <div class="board">
+      <div class="board-head"><span>Departures</span><span>+</span></div>
+      <div id="boardList"></div>
+    </div>
+    <div class="hills"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,90 C300,50 500,110 800,70 C1050,35 1250,100 1440,70 L1440,120 L0,120 Z" fill="#efe6cf"/></svg></div>
+  </section>
+
+ 
+
+  <!-- CONTACT -->
+  <section id="contact" class="page">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span>Final Stop</div>
+      <h2>Let's build something worth traveling toward. Connect with me!</h2>
+      <p>And yes my favourite place to work is on a train :)</p>
+    </div>
+    <div class="contact-btns">
+      <a class="btn btn-outline" href="mailto:shivanisaravanan2k8@gmail.com">✉ Email</a>
+      <a class="btn btn-outline" href="https://www.linkedin.com/in/shivani-saravanan-/" target="_blank" rel="noopener">in LinkedIn</a>
+      <a class="btn btn-outline" href="https://github.com/Shivani-Devs" target="_blank" rel="noopener">⌥ GitHub</a>
+      <a class="btn btn-dark" href="#" target="_blank" rel="noopener">⇩ Resume</a>
+    </div>
+  </section>
+
+  <footer class="page">
+    <p class="thanks">Thanks for riding along!</p>
+    <div class="foot-icons">🚂 🚃</div>
+    <div class="foot-bar">
+      <span>© 2026 Shivani Saravanan. All rights reserved.</span>
+      <a href="#home">Back to Top ↑</a>
+    </div>
+  </footer>
+
+</main>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <div class="modal-img" id="modalImg"></div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   DATA — add/remove entries here and the matching section updates
+   automatically. No other code needs to change.
+   ===================================================================== */
+
+  const awardsData = [
+    { title: "President of the Year", subtitle: "JA Ontario 2026 " },
+    { title: "UofT Women's Club Scholar", subtitle: "University of Toronto 2026" },
+    { title: "5th Place Securities & Investments", subtitle: "FBLC 2026" },
+    { title: "More to be added", subtitle: "The line extends forward" }
+  ];
+
+  const cargoData = [
+    { title: "Programming", colorClass: "c-programming", skills: ["Python", "Java", "Web Development"] },
+    /*{ title: "AI & Data", colorClass: "c-ai", skills: ["Machine Learning", "TensorFlow", "Data Analysis"] }, */
+    { title: "Design", colorClass: "c-design", skills: ["Figma", "UI/UX", "Product Design"] },
+   /* { title: "Engineering", colorClass: "c-engineering", skills: ["CAD", "Prototyping", "Arduino"] }, */
+    { title: "Leadership", colorClass: "c-leadership", skills: ["Public Speaking", "Team Management", "Mentoring"] }
+  ];
+
+  const projectsData = [
+    {
+      id: "styleme",
+      num: "Project 01",
+      title: "StyleMe AI",
+      image: "linear-gradient(135deg,#3a4a3f,#232f27)",
+      summary: "An AI-powered personal styling assistant that recommends outfits based on body type, occasion, and personal taste.",
+      desc: "An AI-powered personal styling assistant that recommends outfits based on body type, occasion, weather, and personal preferences. Built to make fashion accessible and confidence-boosting for everyone.",
+      tags: ["Python", "TensorFlow", "React", "Figma"],
+      tagsLabel: "Technologies",
+      reflectionLabel: "Lessons Learned",
+      reflection: "Importance of adaptaion in app development and the process of creating business partnerships"
+    },
+    {
+      id: "ChillCharge",
+      num: "Project 02",
+      title: "ChillCharge",
+      image: "linear-gradient(135deg,#1c1c1c,#3a2a1a)",
+      summary: "Used thermoelectric principles to designed and prototyped an iPhone charger that converts heat difference in ice and flame into usable electricity",
+      desc: "Designed a waste heat capturing system for northern Canada that transports residual heat from power plants into a greenhouse containing thermoelectric generators. Leveraging heat differences, each installation is able to power 1000 homes. Prototyped using mini thermoelectric generators, ice and candles to power an iPhone.",
+      tags: ["Business Plan", "Design", "Prototyping", "Python"],
+      tagsLabel: "Technologies",
+      reflectionLabel: "Lessons Learned",
+      reflection: "Tested our ambitious goals against real world expectations and feasability"
+    },
+    {
+      id: "Stem Outreach",
+      num: "Project 03",
+      title: "Stem Outreach",
+      image: "linear-gradient(135deg,#1c1c1c,#3a2a1a)",
+      summary: "Creating interactive STEM workshops for elementary school students in the area",
+      desc: "Mentored 7 high school teams to create interactive STEM workshops and presented to local elementary students. Founded this program at my school after working with UofT to create workshops for two years",
+      tags: ["Mentorship", "Logistics", "Leadership"],
+      tagsLabel: "Skills",
+      reflectionLabel: "Lessons Learned",
+      reflection: "Giving back to the community is tons of fun"
+    }
+  ];
+
+  const interestsData = [
+    "Reading Classics",
+    "App Development",
+    "Multivariant Calculus",
+    "Running"
+    
+  ];
+
+  const stopsData = [
+    {
+      id: "shad",
+      title: "SHAD",
+      role: "Fellow",
+      statusLabel: "Summer 2024",
+      statusClass: "status-summer",
+      summary: "Intensive STEAM enrichment program. Worked on and pitched a startup idea to investors, explored entrepreneurship, and collaborated with top students from across Canada.",
+      tags: ["Prototyping", "Public Speaking", "Entrepreneurship"],
+      tagsLabel: "Skills Gained",
+      reflectionLabel: "Reflection",
+      reflection: "A month that compressed years of growth — proof that the best ideas come from teams willing to prototype fast and fail faster."
+    },
+    {
+      id: "jvi",
+      title: "JVI Internship",
+      role: "Operations Management Intern",
+      statusLabel: "Summer 2025",
+      statusClass: "status-ongoing",
+      summary: "Contributing to peer-reviewed undergraduate research. Developing skills in academic writing, data analysis, and scientific communication.",
+      tags: ["Data Analysis", "Academic Writing", "Research"],
+      tagsLabel: "Skills Gained",
+      reflectionLabel: "Reflection",
+      reflection: "Research taught me patience — the best insights show up after the tenth pass through the data, not the first."
+    },
+    {
+      id: "first",
+      title: "FIRST Canada Youth Council",
+      role: "Council Member",
+      statusLabel: "2025-2026",
+      statusClass: "status-current",
+      summary: "Promoting EDI in STEAM across Canada. Led Project Green, collecting recyclable plastics from teams across Ontario. I got to co-host a podcast too!",
+      tags: ["Advocacy", "Mentorship", "Program Design"],
+      tagsLabel: "Skills Gained",
+      reflectionLabel: "Reflection",
+      reflection: "Leadership here means listening first — the students closest to a barrier usually already know how to remove it."
+    },
+    {
+      id: "styleme-founder",
+      title: "StyleMe",
+      role: "Founder & President",
+      statusLabel: "Founded 2026",
+      statusClass: "status-founded",
+      summary: "Lead a team building an AI-powered fashion platform allowing customers to virtually try on clothing from local retailers. Managing product development, design, marketing, and user research from the ground up.",
+      tags: ["Product Strategy", "Team Leadership", "App Development"],
+      tagsLabel: "Skills Gained",
+      reflectionLabel: "Reflection",
+      reflection: "Founding StyleMe showed me that building the product is half the job — building the team that keeps building it is the other half."
+    }
+  ];
+
+/* =====================================================================
+   RENDER — builds each section from the data above
+   ===================================================================== */
+
+  function renderAwards(){
+    const wrap = document.getElementById('awardsList');
+    wrap.innerHTML = awardsData.map(a => `
+      <div class="award-card">
+        <div class="signal-housing">
+          <span class="s-red"></span>
+          <span class="s-amber"></span>
+          <span class="s-green"></span>
+        </div>
+        <div><h3>${a.title}</h3><p>${a.subtitle}</p></div>
+      </div>
+    `).join('');
+  }
+
+  function renderCargo(){
+    const wrap = document.getElementById('cargoTrack');
+    wrap.innerHTML = cargoData.map(c => `
+      <div class="cargo-card ${c.colorClass}">
+        <div class="cargo-rail-top"></div>
+        <h3>${c.title}</h3>
+        <ul>${c.skills.map(s => `<li>${s}</li>`).join('')}</ul>
+        <div class="cargo-wheels"><span></span><span></span></div>
+      </div>
+    `).join('');
+  }
+
+  function renderProjects(){
+    const wrap = document.getElementById('projectsList');
+    wrap.innerHTML = projectsData.map(p => `
+      <div class="proj-card" data-project="${p.id}">
+        <div class="proj-img ${p.placeholder ? 'placeholder' : ''}" style="background:${p.image};">
+          ${p.placeholder ? '<span>◌ ◌ ◌</span>' : ''}
+        </div>
+        <div class="proj-body">
+          <div class="proj-num">${p.num}</div>
+          <h3>${p.title}</h3>
+          <p>${p.summary}</p>
+          <div class="tag-row">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function renderBoard(){
+    const wrap = document.getElementById('boardList');
+    wrap.innerHTML = interestsData.map((name, i) => `
+      <div class="board-row">
+        <span class="board-idx">${String(i+1).padStart(2,'0')}</span>
+        <span class="board-name">${name}</span>
+        <span class="board-status">Boarding</span>
+      </div>
+    `).join('');
+  }
+
+  function renderStops(){
+    const wrap = document.getElementById('stopsList');
+    wrap.innerHTML = stopsData.map(s => `
+      <div class="stop" data-stop="${s.id}">
+        <div class="stop-main">
+          <h3>${s.title}</h3>
+          <div class="stop-role">${s.role}</div>
+          <p>${s.summary}</p>
+        </div>
+        <div class="stop-status ${s.statusClass}">${s.statusLabel}</div>
+      </div>
+    `).join('');
+  }
+
+  renderAwards();
+  renderCargo();
+  renderProjects();
+  renderBoard();
+  renderStops();
+
+/* =====================================================================
+   INTERACTIONS
+   ===================================================================== */
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navList = document.getElementById('navList');
+  navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+  navList.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navList.classList.remove('open')));
+
+  // Hero dots: alternate a red glow, one at a time
+  const hdots = document.querySelectorAll('.hero-dots .hdot');
+  let hdotIndex = 0;
+  if(hdots.length){
+    hdots[0].classList.add('active');
+    setInterval(() => {
+      hdots.forEach(d => d.classList.remove('active'));
+      hdotIndex = (hdotIndex + 1) % hdots.length;
+      hdots[hdotIndex].classList.add('active');
+    }, 900);
+  }
+
+  // Cargo car slider <-> scroll sync
+  const cargoTrack = document.getElementById('cargoTrack');
+  const cargoSlider = document.getElementById('cargoSlider');
+  let syncingFromScroll = false;
+
+  cargoSlider.addEventListener('input', () => {
+    const maxScroll = cargoTrack.scrollWidth - cargoTrack.clientWidth;
+    cargoTrack.scrollLeft = (cargoSlider.value / 1000) * maxScroll;
+  });
+  cargoTrack.addEventListener('scroll', () => {
+    const maxScroll = cargoTrack.scrollWidth - cargoTrack.clientWidth;
+    if(maxScroll <= 0) return;
+    syncingFromScroll = true;
+    cargoSlider.value = (cargoTrack.scrollLeft / maxScroll) * 1000;
+    syncingFromScroll = false;
+  });
+
+  // Active nav link highlight on scroll
+  const sections = document.querySelectorAll('main section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(l => {
+          l.style.color = l.getAttribute('href') === '#' + id ? 'var(--rust)' : '';
+        });
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s => io.observe(s));
+
+  // Rail train marker follows scroll position along the track
+  const railMarker = document.getElementById('railMarker');
+  const rail = document.querySelector('.rail');
+  function updateRailMarker(){
+    const railH = rail.clientHeight;
+    const markerH = railMarker.offsetHeight;
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    const fraction = docH > 0 ? Math.min(Math.max(window.scrollY / docH, 0), 1) : 0;
+    railMarker.style.top = (fraction * (railH - markerH)) + 'px';
+  }
+  window.addEventListener('scroll', () => window.requestAnimationFrame(updateRailMarker));
+  window.addEventListener('resize', updateRailMarker);
+  updateRailMarker();
+
+  // ---------- Modal (projects + stops) ----------
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modalImg = document.getElementById('modalImg');
+  const modalBody = document.getElementById('modalBody');
+  const modalClose = document.getElementById('modalClose');
+
+  function renderTags(tags){ return tags.map(t => `<span class="tag">${t}</span>`).join(''); }
+
+  function openProjectModal(data){
+    modalImg.style.display = 'block';
+    modalImg.style.background = data.image;
+    let html = `<div class="modal-eyebrow">${data.num}</div><h3>${data.title}</h3><p class="modal-desc">${data.desc}</p>`;
+    html += `<div class="modal-label">${data.tagsLabel}</div><div class="modal-tags">${renderTags(data.tags)}</div>`;
+    if(data.reflection){
+      html += `<div class="modal-label">${data.reflectionLabel}</div><p class="modal-reflection">${data.reflection}</p>`;
+    }
+    modalBody.innerHTML = html;
+    modalOverlay.classList.add('open');
+  }
+
+  function openStopModal(data){
+    modalImg.style.display = 'none';
+    let html = `<div class="modal-status ${data.statusClass}">${data.statusLabel}</div>`;
+    html += `<h3>${data.title}</h3><div class="stop-role" style="margin-bottom:14px;">${data.role}</div>`;
+    html += `<p class="modal-desc">${data.summary}</p>`;
+    html += `<div class="modal-label">${data.tagsLabel}</div><div class="modal-tags">${renderTags(data.tags)}</div>`;
+    html += `<div class="modal-label">${data.reflectionLabel}</div><p class="modal-reflection">${data.reflection}</p>`;
+    modalBody.innerHTML = html;
+    modalOverlay.classList.add('open');
+  }
+
+  function closeModal(){ modalOverlay.classList.remove('open'); }
+
+  document.getElementById('projectsList').addEventListener('click', (e) => {
+    const card = e.target.closest('.proj-card');
+    if(!card) return;
+    const data = projectsData.find(p => p.id === card.getAttribute('data-project'));
+    if(data) openProjectModal(data);
+  });
+
+  document.getElementById('stopsList').addEventListener('click', (e) => {
+    const card = e.target.closest('.stop');
+    if(!card) return;
+    const data = stopsData.find(s => s.id === card.getAttribute('data-stop'));
+    if(data) openStopModal(data);
+  });
+
+  modalClose.addEventListener('click', closeModal);
+  modalOverlay.addEventListener('click', (e) => { if(e.target === modalOverlay) closeModal(); });
+  document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
