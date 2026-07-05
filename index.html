@@ -149,17 +149,18 @@
     box-shadow: 0 0 9px 2px rgba(177,80,44,0.55);
   }
   .hero h1{
-    font-size:clamp(5.0rem, 7vw, 5.2rem);
-    line-height:1.03;
+    font-size:clamp(2.4rem, 10vw, 5.2rem);
+    line-height:1.05;
     margin-bottom:20px;
   }
   .hero .tagline{
-    font-family:'Playfair Display', serif; font-style:italic; font-size:1.75rem;
+    font-family:'Playfair Display', serif; font-style:italic; font-size:clamp(1.05rem, 4vw, 1.75rem);
     color:var(--ink-soft); margin-bottom:18px;
   }
   .hero .keywords{
-    font-size:0.8rem; letter-spacing:0.2em; font-weight:700; text-transform:uppercase;
+    font-size:clamp(0.62rem, 2.4vw, 0.8rem); letter-spacing:0.14em; font-weight:700; text-transform:uppercase;
     color:var(--rust-soft); margin-bottom:34px;
+    padding:0 10px;
   }
   .btn{
     display:inline-flex; align-items:center; gap:10px;
@@ -174,7 +175,7 @@
   .btn-outline{ background:transparent; border-color:var(--border); color:var(--ink); }
   .btn-outline:hover{ border-color:var(--rust); color:#fff; background:var(--rust); }
 
-  .hero-train{ margin-top:54px; width:230px; }
+  .hero-train{ margin-top:54px; width:min(230px, 62vw); }
   .hero-train svg{ width:100%; height:auto; display:block; }
 
   .scroll-cue{
@@ -187,7 +188,7 @@
   @keyframes bob{ 0%,100%{ transform:translate(-50%,0);} 50%{ transform:translate(-50%,6px);} }
 
   /* ================= ABOUT ================= */
-  #about{ padding: 110px 0 130px; }
+  #about{ padding-top: 110px; padding-bottom: 130px; }
   .about-grid{ display:grid; grid-template-columns: 1.15fr 0.85fr; gap:70px; align-items:start; }
   .about-grid h2{ font-size:2.5rem; margin-bottom:22px; }
   .about-grid p{ color:var(--ink-soft); line-height:1.85; font-size:1.02rem; margin-bottom:20px; }
@@ -216,7 +217,7 @@
   }
 
   /* ================= AWARDS ================= */
-  #awards{ padding: 60px 0 130px; }
+  #awards{ padding-top: 60px; padding-bottom: 130px; }
   .cards-4{
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
@@ -267,7 +268,7 @@
   .award-card p{ font-size:0.82rem; color:var(--ink-soft); }
 
   /* ================= CARGO / SKILLS ================= */
-  #skills{ padding: 60px 0 140px; }
+  #skills{ padding-top: 60px; padding-bottom: 140px; }
   .cargo-wrap{ position:relative; }
   .cargo-track{
     display:flex; gap:26px; overflow-x:auto;
@@ -343,7 +344,7 @@
   input[type=range].track-slider:hover::-moz-range-thumb{ background:var(--rust); }
 
   /* ================= PROJECTS ================= */
-  #projects{ padding:60px 0 140px; }
+  #projects{ padding-top:60px; padding-bottom:140px; }
   .proj-grid{
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
@@ -381,7 +382,7 @@
   }
 
   /* ================= NOW BOARDING ================= */
-  #interests{ padding:60px 0 150px; }
+  #interests{ padding-top:60px; padding-bottom:150px; }
   .board{
     background:var(--green-dark); border-radius:16px;
     padding:26px 26px 10px; box-shadow: var(--shadow); color:#e9e4d4;
@@ -407,7 +408,7 @@
   }
 
   /* ================= EXPERIENCE ================= */
-  #experience{ padding:60px 0 150px; }
+  #experience{ padding-top:60px; padding-bottom:150px; }
   .stops{ position:relative; display:flex; flex-direction:column; gap:20px; padding-left:38px; }
   .stops::before{
     content:""; position:absolute; left:8px; top:12px; bottom:12px; width:2px;
@@ -450,7 +451,7 @@
   .status-founded{ background:rgba(90,110,180,0.16); color:#3d4f9c; }
 
   /* ================= CONTACT ================= */
-  #contact{ padding:90px 0 60px; text-align:center; }
+  #contact{ padding-top:90px; padding-bottom:60px; text-align:center; }
   #contact .section-head{ margin:0 auto 34px; max-width:620px; text-align:center; }
   #contact .eyebrow{ justify-content:center; }
   #contact h2{ font-size:2.3rem; line-height:1.25; margin-bottom:14px; }
@@ -519,19 +520,72 @@
   @media (max-width: 980px){
     .about-grid{ grid-template-columns:1fr; }
     .proj-grid{ grid-template-columns:1fr; }
+    .page{ padding-left:52px; }
+    .nav-inner{ padding-left:52px; }
+    .foot-bar{ padding-left:52px; }
   }
+
   @media (max-width: 720px){
-    .rail{ left:14px; }
-    .page{ padding-left:36px; padding-right:20px; }
-    .nav-inner{ padding-left:36px; padding-right:20px; }
-    .foot-bar{ padding-left:36px; padding-right:20px; flex-direction:column; gap:10px; text-align:center; }
-    nav ul{ position:fixed; top:64px; right:0; left:0; background:var(--cream); flex-direction:column; align-items:center; gap:0; border-bottom:1px solid var(--border); transform:translateY(-120%); transition: transform .3s ease; padding:10px 0; }
+    /* Rail (left-side train track) is decorative chrome that eats
+       horizontal space on small screens — hide it and reclaim the room */
+    .rail{ display:none; }
+    .page{ padding-left:22px; padding-right:22px; }
+    .nav-inner{ padding-left:22px; padding-right:22px; }
+    .foot-bar{ padding-left:22px; padding-right:22px; flex-direction:column; gap:10px; text-align:center; }
+
+    nav ul{
+      position:fixed; top:60px; right:0; left:0; background:var(--cream);
+      flex-direction:column; align-items:center; gap:0;
+      border-bottom:1px solid var(--border);
+      transform:translateY(-120%); transition: transform .3s ease; padding:10px 0;
+      z-index:60;
+    }
     nav ul.open{ transform:translateY(0); }
     nav ul li{ width:100%; text-align:center; padding:14px 0; }
-    .nav-toggle{ display:flex; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; }
+    .nav-toggle{ display:flex; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:6px; }
     .nav-toggle span{ width:20px; height:2px; background:var(--ink); }
+
     .cards-4{ grid-template-columns:1fr; }
-    .stop{ flex-direction:column; }
+    .stop{ flex-direction:column; gap:14px; }
+    .stop-status{ align-self:flex-start; }
+
+    /* Timeline markers still work without the global rail — just tuck
+       them in a little so they don't crowd the reclaimed edge space */
+    .stops{ padding-left:30px; }
+    .stops::before{ left:6px; }
+    .stop::before{ left:-30px; width:12px; height:12px; }
+
+    #about{ padding-top:80px; padding-bottom:90px; }
+    #awards{ padding-top:40px; padding-bottom:90px; }
+    #skills{ padding-top:40px; padding-bottom:100px; }
+    #projects{ padding-top:40px; padding-bottom:100px; }
+    #interests{ padding-top:40px; padding-bottom:110px; }
+    #experience{ padding-top:40px; padding-bottom:110px; }
+    #contact{ padding-top:70px; padding-bottom:50px; }
+
+    .section-head h2{ font-size:1.9rem; }
+    .pass-row3{ flex-wrap:wrap; gap:14px 18px; }
+    .pass-row3 div{ flex:1 1 40%; }
+  }
+
+  @media (max-width: 480px){
+    .hero{ min-height:88vh; padding-top:40px; padding-bottom:90px; }
+    .hero-dots{ margin-bottom:18px; }
+    .btn{ padding:12px 20px; font-size:0.78rem; }
+    .about-grid{ gap:44px; }
+    .pass{ padding:22px 20px 18px; }
+    .award-card{ padding:18px 16px; gap:12px; }
+    .cargo-card{ flex-basis:78vw; }
+    .modal-overlay{ padding:16px; }
+    .modal-body{ padding:20px 20px 24px; }
+    .modal-img{ height:170px; }
+    .board-row{ gap:10px; flex-wrap:wrap; }
+    .board-name{ flex:1 1 100%; order:1; }
+    .board-idx{ order:0; }
+    .board-status{ order:2; }
+    .stop{ padding:18px 18px; }
+    .contact-btns{ gap:10px; }
+    .foot-icons{ letter-spacing:4px; }
   }
 </style>
 </head>
@@ -1009,6 +1063,7 @@
   const railMarker = document.getElementById('railMarker');
   const rail = document.querySelector('.rail');
   function updateRailMarker(){
+    if(!rail || getComputedStyle(rail).display === 'none') return;
     const railH = rail.clientHeight;
     const markerH = railMarker.offsetHeight;
     const docH = document.documentElement.scrollHeight - window.innerHeight;
